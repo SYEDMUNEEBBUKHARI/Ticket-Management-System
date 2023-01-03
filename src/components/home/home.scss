@@ -17,8 +17,90 @@
   .content {
     position: relative;
     .heading {
-      color: rgb(0, 229, 255);
+      color: white;
       text-align: center;
+      position: relative;
+      top: 5vh;
+    }
+
+    .tickets {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10vh;
+      .active {
+        width: 250px;
+        height: calc(100vh - 20vh);
+        background-color: rgba(211, 211, 211, 0.507);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+        border-radius: 5px;
+        overflow: auto;
+        overflow-y: auto;
+        h3 {
+          text-align: center;
+          color: lightskyblue;
+          padding: 10px;
+        }
+      }
+      .droppable {
+        width: 250px;
+        height: calc(100vh - 20vh);
+
+        background-color: rgba(211, 211, 211, 0.507);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+        border-radius: 5px;
+        overflow: auto;
+        overflow-y: auto;
+        h3 {
+          text-align: center;
+          color: lightskyblue;
+          padding: 10px;
+        }
+      }
+      .draggable {
+        width: 220px;
+        height: 100px;
+        margin: 10px auto;
+        line-height: 1em;
+        padding: 10px 10px;
+        cursor: pointer;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 5px;
+        overflow: auto;
+        overflow-y: auto;
+        h3 {
+          text-align: center;
+          color: lightskyblue;
+        }
+        .ticket-title {
+          font-size: 15px;
+          font-weight: 600;
+          margin: 0px;
+        }
+        .title-name {
+          font-size: 14px;
+          padding-top: 10px;
+        }
+        .ticket-todos {
+          font-size: 15px;
+          font-weight: 600;
+          padding-top: 10px;
+        }
+        .todos-list {
+          font-size: 14px;
+        }
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: green;
+          border-color: green;
+        }
+      }
+      .create-ticket-btn {
+        background-color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
     }
   }
 }
