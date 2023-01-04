@@ -1,33 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Button, Checkbox } from 'antd'
 import CreateTicket from '../../Modal/CreateTicket'
 import './home.scss'
 const Home = () => {
   const [showModal, setShowModal] = useState(false)
   const [checked, setChecked] = useState(false)
-  useEffect(() => {}, [showModal])
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
-      name: 'create assessment',
-      description: '',
-      status: 'active',
-      todos: [
-        { todo: true, description: 'crypto bot should be integrated' },
-        { todo: true, description: 'crypto bot should be integrated' },
-        { todo: true, description: 'crypto bot should be integrated' },
-      ],
-    },
-    {
-      id: 2,
-      name: 'create backend',
-      description: '',
-      status: 'completed',
-      todos: [],
-    },
-    {
-      id: 3,
-      name: 'create assessment',
+      name: 'fake result connect db to get real data',
       description: '',
       status: 'active',
       todos: [
@@ -37,6 +20,25 @@ const Home = () => {
       ],
     },
   ])
+
+  useEffect(() => {
+    getticketsData()
+  }, [showModal])
+  const getticketsData = async () => {
+    const result = await axios.get(
+      'http://localhost:8000/api/ticket/getTicketData',
+      {
+        params: {
+          userId: 1,
+        },
+      }
+    )
+    let { data } = result
+    console.log('adsdsa', data.response[0].Tickets || [])
+    const tickets = data.response[0].Tickets
+    setTasks(tickets)
+    return data
+  }
   const data = {
     active: [],
     completed: [],

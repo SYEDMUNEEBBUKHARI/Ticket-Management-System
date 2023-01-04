@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Button, Modal, Form, Input, Divider } from 'antd'
 import { CloseCircleOutlined } from '@ant-design/icons'
 import './createticket.scss'
@@ -16,7 +17,7 @@ const CreateTicket = ({ value, close }) => {
     setIsModalOpen(false)
     close()
   }
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     if (
       values.name == '' ||
       values.Description == '' ||
@@ -25,8 +26,20 @@ const CreateTicket = ({ value, close }) => {
       alert('Fields should be filled!')
     }
     let temp = values
-    temp.addtodos = addToDoData
+    temp.todos = addToDoData
+    temp.userId = 1
+    temp.status = 'active'
     console.log('Success:', temp)
+    const data = await axios.post(
+      'http://localhost:8000/api/ticket/submitTicket',
+      temp
+    )
+    console.log(data.status)
+    if (data.status) {
+      setIsModalOpen(false)
+    } else {
+      alert('Error ')
+    }
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
@@ -76,8 +89,8 @@ const CreateTicket = ({ value, close }) => {
             <Input />
           </Form.Item>
           <Form.Item
-            label='Description'
-            name='Description'
+            label='description'
+            name='description'
             required={true}
             rules={[
               {
@@ -88,13 +101,12 @@ const CreateTicket = ({ value, close }) => {
           >
             <Input.TextArea showCount maxLength={100} />
           </Form.Item>
-          <Form.Item label='AddTodos' name='addtodos'>
+          <Form.Item label='todos' name='todos'>
             <div>
               <Input
                 value={description || ''}
                 name='todo description'
                 onChange={(e) => {
-                  console.log(e.currentTarget.value)
                   setDescription(e.currentTarget.value)
                 }}
               />
@@ -110,7 +122,6 @@ const CreateTicket = ({ value, close }) => {
                       <CloseCircleOutlined
                         className='close'
                         onClick={(e) => {
-                          console.log(addToDoData[k])
                           refineData(k)
                         }}
                       />
